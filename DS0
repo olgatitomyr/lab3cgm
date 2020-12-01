@@ -1,0 +1,19 @@
+from PIL import Image, ImageDraw
+import math
+
+image = Image.new('RGBA', (960, 960), 'white')
+draw = ImageDraw.Draw(image)
+angle = math.radians(10)
+
+
+with open("DS0.txt", "r") as file:
+    for line in file:
+        coords = line.split()
+        x = int(coords[0]) - 480
+        y = int(coords[1]) - 480
+        x_res = math.cos(angle) * x - math.sin(angle) * y
+        y_res = math.sin(angle) * x + math.cos(angle) * y
+        draw.line((x_res + 480, y_res + 480, x_res + 481, y_res + 481), fill=(0, 190, 255))
+
+image.show()
+image.save("DS0_result.png")
